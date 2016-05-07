@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Notificatiions</title>
+<link rel="stylesheet" type="text/css" href="welcome.css">
+<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#loginBtn").click(function(event){
+	
+    	//alert("hiii");
+    	$("#errordiv").hide();
+		var user = $("#Username").val();
+		var pass = $("#Password").val();
+       	//var url="http://localhost:8080/AmbulanceLabs/rest/notifications?userName="+user +"&password="+pass;
+       	var url="http://carmgt-1239.appspot.com/rest/notifications?userName="+user +"&password="+pass;
+       	
+   	   	$.ajax({url: url,
+   	   		data: {
+   	      		format: 'json'
+   	   		},
+   	   		
+   	   		type: 'POST',
+   	   		success: function(data){
+	   	   		
+   	   			//alert("hi");
+   	   			$("#div1").html(" Notifications!! <br/><br/>");
+   	   			$.each(data,function(key,value){
+   	   				if(value.error != undefined){
+	   	   				$("#errordiv").html(value.error);
+	   	   	    		$("#errordiv").show();
+	   	   	    		return;
+   	   				}else{
+						if(value.nPackage!="test"){
+							$("#div1").append(value.nPackage+"<br/>");
+							$("#div1").append(value.nTicker+"<br/>");
+							$("#div1").append(value.nTitle+"<br/>");
+							$("#div1").append(value.nTitle+"<br/>");
+							$("#div1").append("<br/>");
+						}
+   	   					
+   	   				}
+   	   	    		
+   	   			});
+	   	        
+	   	    },
+   	    	error: function(xhr,status,error){
+   	    		alert("error..."+error+"--"+status);
+   	    		$("#errordiv").html("Some error in the server!!");
+   	    		$("#errordiv").show();
+   	    	}
+   	   	});
+   	 //alert("hiiiend");
+   	 
+		
+    });
+ });
+</script>
+</head>
+<body>
+<div class="preview__header">
+
+  <div class="preview__envato-logo">
+    <h3 class="form-signin-heading">Notifications !!</h3>
+  </div>
+
+  <div class="preview__actions">
+    <div class="preview__action--buy">
+    	<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" id="refreshBtn" >Refresh</button>
+      
+    </div>
+
+    
+  </div>
+
+</div>
+<div class = "container">
+	<div class="wrapper">
+		<div name="Login_Form" class="form-signin" >       
+		    <h3 class="form-signin-heading">Notifications!!</h3>
+			  <hr class="colorgraph"><br>
+			  
+			  <input type="text" class="form-control" id="Username" name="Username" placeholder="Username" required="" autofocus="" />
+			  <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required=""/>     		  
+			  <div id="errordiv" class="alert alert-danger" style="display:none;"></div>
+			  <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" id="loginBtn" >Login</button>  			
+		</div>
+		<div id="div1">			
+		</div>
+	</div>
+</div>
+</body>
+</html>
