@@ -65,6 +65,7 @@ input[type="password"] {
 
 .preview__actions{
 	float: right;
+	padding: 0 20px;
 }
 
 .preview__action--buy{

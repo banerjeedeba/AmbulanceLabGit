@@ -46,16 +46,17 @@ public class NotificationService {
 			@QueryParam("nPackage") String nPackage,
 			@QueryParam("nTicker") String nTicker,
 			@QueryParam("nTitle") String nTitle,
-			@QueryParam("nTitle") String nText)
+			@QueryParam("nText") String nText)
 	{
+		
 		String key = userName+"_"+password;
 		NotificationDO notification = new NotificationDO(nPackage, nTicker, nTitle, nText, new Date().getTime());
 		if(notifications.containsKey(key))
 		{
 			ArrayList<NotificationDO> nArr = notifications.get(key);
-			if(nArr.size() >= 15)
+			if(nArr.size() >= 50)
 			{
-				nArr.remove(15);
+				nArr.remove(50);
 			}
 			nArr.add(notification);
 			Collections.sort(nArr);
@@ -67,6 +68,7 @@ public class NotificationService {
 			notifications.put(key, nArr);
 		}
 		return "[{\"success\": \"Notification added successfully\"}]";
+	
 	}
 	
 	@POST
