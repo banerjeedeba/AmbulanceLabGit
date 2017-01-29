@@ -46,11 +46,13 @@ public class NotificationService {
 			@QueryParam("nPackage") String nPackage,
 			@QueryParam("nTicker") String nTicker,
 			@QueryParam("nTitle") String nTitle,
+			@QueryParam("nId") String nId,
+			@QueryParam("nKey") String nKey,
 			@QueryParam("nText") String nText)
 	{
 		
 		String key = userName+"_"+password;
-		NotificationDO notification = new NotificationDO(nPackage, nTicker, nTitle, nText, new Date().getTime());
+		NotificationDO notification = new NotificationDO(nPackage, nTicker, nTitle, nText, new Date().getTime(),nId, nKey);
 		if(notifications.containsKey(key))
 		{
 			ArrayList<NotificationDO> nArr = notifications.get(key);
@@ -74,10 +76,20 @@ public class NotificationService {
 	@POST
 	@Path("/remove")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public ArrayList<NotificationDO> removeNotifications(@QueryParam("userName") String userName,
-			@QueryParam("password") String password)
+	public String removeNotifications(@QueryParam("userName") String userName,
+			@QueryParam("password") String password,
+			@QueryParam("nId") String nId,
+			@QueryParam("nKey") String nKey)
 	{
+		String key = userName+"_"+password;
+		ArrayList<NotificationDO> userNotifications = notifications.get(key);
+		for(NotificationDO noty : userNotifications){
+			if(noty.getnKey().equals(nKey)){
+				userNotifications.remove(noty);
+				break;
+			}
+		}
 		
-		return null;
+		return "[{\"success\": \"Notification removed successfully\"}]";
 	}
 }
