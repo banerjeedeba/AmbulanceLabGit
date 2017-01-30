@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.style.service.MeasurementService;
+import com.style.service.MeasurementServiceImpl;
 import com.style.service.ProfileService;
 import com.style.service.ProfileServiceImpl;
 import com.style.web.response.Measurement;
@@ -70,20 +71,27 @@ public class StyleController {
 		return model;
 	}
 	
-	
 	@RequestMapping(value = "/addMeasurement", method = RequestMethod.POST)
 	public ModelAndView addMeasurement(@ModelAttribute("profile") Profile profile) {
 		ModelAndView model = new ModelAndView();
-		if(0==(profile.getProfileid())){
-			Measurement measurement =  new Measurement();
-			measurement.setInseam("37");
-			model.addObject("measurement", measurement);
-			model.setViewName("addmeasurement");
-			return model;
-		}else{
-			return model;
-		}
-		
+		Measurement measurement = new Measurement();
+		measurement.setProfileid(profile.getProfileid());
+		MeasurementService measurementService = new MeasurementServiceImpl();
+		measurement = measurementService.findMeasurement(profile.getProfileid());
+		model.addObject("measurement", measurement);
+		model.setViewName("addMeasurement");
+		return model;
+	}
+	
+	@RequestMapping(value = "/saveMeasurements", method = RequestMethod.POST)
+	public ModelAndView saveMeasurements(@ModelAttribute("measurement") Measurement measurement) {
+		ModelAndView model = new ModelAndView();
+		MeasurementService measurementService = new MeasurementServiceImpl();
+		measurementService.saveMeasurement(measurement);
+		ProfileService impl = new ProfileServiceImpl();
+		model.addObject("profile", impl.findProfile(measurement.getProfileid()));
+		model.setViewName("profile");
+		return model;
 	}
 
 	@RequestMapping(value = "/profileData", method = RequestMethod.POST)

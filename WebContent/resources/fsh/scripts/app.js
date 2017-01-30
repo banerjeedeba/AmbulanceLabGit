@@ -13,6 +13,7 @@ $('#measurementdrawer').removeClass('in');
 
   setTimeout(function(){
        $('#listclientdrawer').removeClass('in');
+       $('#listclientdrawer').addClass('out');
    }, 5);
   };
   
@@ -24,6 +25,7 @@ $('#measurementdrawer').removeClass('in');
   };
   
   function clientDetailsCall(profileid) {
+	  $('.loading-icon').removeClass('hide');
 		var params = "profileid=" + profileid;
 		var parameter = buildParamsObject(params);
 		$.ajax({
@@ -33,7 +35,7 @@ $('#measurementdrawer').removeClass('in');
 			success : function(result) {
 				$('#clientdetaildrawer').html(result);
 				getClientDetails();
-				closeDrawer();
+				$('.loading-icon').addClass('hide');
 			}
 		});
 	};
@@ -45,18 +47,14 @@ $('#measurementdrawer').removeClass('in');
    }, 5);
   };
   
-  function getMeasurementDetails(){
-	  var params = "profileid=0";//+$('#profileid').val();
-	  
-	  
+  function getMeasurementDetails(profileid){
+	  var params = "profileid="+profileid;
 	  var parameter=buildParamsObject(params);
-
 	  $.ajax({
 		  url: "addMeasurement.do", 
 		  type: 'POST',
 		  data: parameter,
 		  success: function(result){
-			  debugger;
 		  $('#clientmeasurement').html('');
 		  $('#clientmeasurement').html(result);
 		  $('#listmeasurementdrawer').removeClass('out');
@@ -64,9 +62,6 @@ $('#measurementdrawer').removeClass('in');
 		        $('#listmeasurementdrawer').addClass('in');
 		      }, 1);
 	    }});  
-	  
-  
-  
   };
   
     function closeMeasurementDetails(){
@@ -102,6 +97,7 @@ $('#measurementdrawer').removeClass('in');
   function closenotesDrawer(){
   setTimeout(function(){
        $('#notesdrawer').removeClass('in');
+       $('#notesdrawer').addClass('out');
    }, 5);
   };
   
@@ -118,35 +114,52 @@ function addClient() {
 		url : "addClient.do",
 		success : function(result) {
 			$('#addclientdrawer').html(result);
+			$('.drawer').addClass('out');
+			$('.drawer').removeClass('in');
+			$('#measurementdrawer').addClass('in');
+			$('#measurementdrawer').removeClass('out');
 		}
 	});
 };
 
 function listClient() {
+	$('.loading-icon').removeClass('hide');
 	$.ajax({
 		url : "listClient.do",
 		success : function(result) {
 			$('#listclientdrawer').html(result);
+			$('.drawer').addClass('out');
+			$('.drawer').removeClass('in');
+			$('#listclientdrawer').removeClass('out');
+			$('#listclientdrawer').addClass('in');
+			$('.loading-icon').addClass('hide');
 		}
 	});
 };
 
 function saveClient() {
+	$('.loading-icon').removeClass('hide');
 	var params = "firstname=" + $('#firstname').val() + "&lastname="
 			+ $('#lastname').val() + "&address=" + $('#address').val()
 			+ "&contactNo=" + $('#contactNo').val() + "&ccNumber="
 			+ $('#ccNumber').val() + "&email=" + $('#email').val();
 	var parameter = buildParamsObject(params);
-	$.ajax({
-		url : "profileData.do",
-		type : 'post',
-		data : parameter,
-		success : function(result) {
-			$('#clientdetaildrawer').html(result);
-			getClientDetails();
-			closeDrawer();
-		}
-	});
+	// setTimeout(function(){
+		  
+		 $.ajax({
+				url : "profileData.do",
+				type : 'post',
+				data : parameter,
+				success : function(result) {
+					$('#clientdetaildrawer').html(result);
+					$('.loading-icon').addClass('hide');
+					getClientDetails();
+					closeDrawer();
+				}
+			});
+		   
+	 //  }, 2);
+	
 };
 
 function buildParamsObject(str) {
@@ -158,4 +171,31 @@ function buildParamsObject(str) {
 		paramObj[keyval[0]] = decodeURI(keyval[1]);
 	}
 	return paramObj;
+};
+
+function saveClientMeasurements() {
+	var params = "profileid=" + $('#measure-profileid').val() 
+				+ "&neck="+ $('#neck').val() 
+				+ "&sleeve=" + $('#sleeve').val()
+				+ "&chest=" + $('#chest').val() 
+				+ "&waist=" + $('#waist').val() 
+				+ "&shoe=" + $('#shoe').val()
+				+ "&inseam=" + $('#inseam').val()
+				+ "&jacket=" + $('#jacket').val()
+				+ "&shirt=" + $('#shirt').val()
+				+ "&weight=" + $('#weight').val()
+				+ "&height=" + $('#height').val();
+	
+	var parameter = buildParamsObject(params);
+	$.ajax({
+		url : "saveMeasurements.do",
+		type : 'post',
+		data : parameter,
+		success : function(result) {
+			$('#clientdetaildrawer').html(result);
+			getClientDetails();
+			$('#listmeasurementdrawer').removeClass('in');
+			$('#listmeasurementdrawer').addClass('out');
+		}
+	});
 };

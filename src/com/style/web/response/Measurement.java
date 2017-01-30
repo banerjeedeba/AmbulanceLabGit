@@ -2,6 +2,7 @@ package com.style.web.response;
 
 public class Measurement {
 
+	private int profileid;
 	private String neck;
 	private String sleeve;
 	private String chest;
@@ -13,6 +14,14 @@ public class Measurement {
 	private String weight;
 	private String height;
 	
+	public int getProfileid() {
+		return profileid;
+	}
+
+	public void setProfileid(int profileid) {
+		this.profileid = profileid;
+	}
+
 	public String getNeck() {
 		return neck;
 	}
@@ -91,6 +100,25 @@ public class Measurement {
 
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+
+	public Measurement(int profileid, String neck, String sleeve, String chest, String waist, String shoe,
+			String inseam, String jacket, String shirt, String weight, String height) {
+		super();
+		this.profileid = profileid;
+		this.neck = neck;
+		this.sleeve = sleeve;
+		this.chest = chest;
+		this.waist = waist;
+		this.shoe = shoe;
+		this.inseam = inseam;
+		this.jacket = jacket;
+		this.shirt = shirt;
+		this.weight = weight;
+		this.height = height;
+	}
+
+	public Measurement() {
 	}
 
 }

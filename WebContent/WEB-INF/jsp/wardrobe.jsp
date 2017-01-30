@@ -16,7 +16,7 @@
   <!--  <link rel="stylesheet" href="/Spring/Webcontent/resources/fsh/styles/bootstrap/bootstrap.css?v=0" /> -->
   <!-- <link rel="stylesheet" href="/Spring/Webcontent/resources/fsh/styles/app.css?v=0" /> -->
   <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
+<link href="css/thumbnail-gallery.css" rel="stylesheet">
   <spring:url value="/resources/fsh/styles/bootstrap/bootstrap.css?v=0" var="bootstrapCss" />
   <spring:url value="/resources/fsh/styles/app.css?v=0" var="apppCss" />
 
@@ -49,6 +49,9 @@
 <script type="text/javascript" aria-hidden="true">
   require(['jquery','bootstrap','app'], function($) {
     $(document).ready(function () {
+    	$('.showchevron').click(function(){
+    		$('.mastdrawerheadtitle').removeClass('hide');
+    	});
   var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
@@ -112,12 +115,23 @@
 </script>
 </head>                                      
 <body class="page-loading bodyimage">
+<div class="loading-icon hide">
+<div class="loading-icon1"></div>
+	<img src="resources/fsh/images/loading.gif" class=".img-responsive loadingimage" width="100" height="100"/>
+</div>
 <div class="background-image">
 <img src="resources/fsh/images/unnamed.jpg" class=".img-responsive" alt="" >
 </div>
 <header>
   <div class="masthead" aria-hidden="false">
     <div class="mastheadtitle">
+     <div class="mastdrawerheadtitle hide">
+  <span class="col-xs-1">
+	<a href="wardrobe.do" >
+		<span class="glyphicon glyphicon-menu-left fshglyphicon-chevron-left"></span>
+	</a>
+  </span>
+  </div>
       <div class="clientimage">
 	<img src="resources/fsh/images/Capture1.PNG" class=".img-responsive" alt="" width="80" height="53">
 	</div>
@@ -235,8 +249,8 @@
 		  </span>
 		</div>
 	</div> -->
-	<div class="bodydrawer">
-	<div class="btn-group btn-group-justified">
+	<div class="drawerpad">
+	<div class="btn-group btn-group-justified itemoutfit">
 	  <div class="btn-group">
 		<button id ="item1" type="button" class="btn fashion-btn-primary buttonselected">Items</button>
 	  </div>
@@ -245,6 +259,22 @@
 	 </div>
  
 </div>
+
+<div class="col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="resources/fsh/images/add.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="resources/fsh/images/add.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="resources/fsh/images/add.jpg" alt="">
+                </a>
+            </div>
  
   
   </div>
@@ -268,10 +298,10 @@
                     <a href="wardrobe.do">Home</a>
                 </li>
                 <li>
-                    <a href="#" id="addClientData" onclick="addClient();return false;">Add Client</a>
+                    <a href="#" id="addClientData" class="showchevron" onclick="addClient();return false;">Add Client</a>
                 </li>
                 <li>
-                    <a href="#" onclick="listClient();return false;" id="listClient">List Client</a>
+                    <a href="#" onclick="listClient();return false;" class="showchevron" id="listClient">List Client</a>
                 </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">PlaceHolder <span class="caret"></span></a>

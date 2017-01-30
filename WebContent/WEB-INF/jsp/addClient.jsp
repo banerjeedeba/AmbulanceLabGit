@@ -29,7 +29,7 @@
 			placeholder="EMAIL" value = "${profile.email}">
 	</div>
 </form>
-<div class=" form-group row listrow">
+<%-- <div class=" form-group row listrow">
 	<div class="col-xs-10">MEASUREMENTS</div>
 
 	<div class="col-xs-2 addclientrow">
@@ -59,7 +59,7 @@
 		</a>
 	</div>
 </div>
-</c:if>
+</c:if> --%>
 
 
 <div class="bottom-btn-container">

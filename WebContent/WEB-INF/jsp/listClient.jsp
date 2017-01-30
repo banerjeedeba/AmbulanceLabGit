@@ -16,7 +16,7 @@
 
 	<c:forEach items="${profileList}" var="profile">
 		<div class="row listrowmeasurement" onclick="clientDetailsCall('${profile.profileid}');">
-			<div class="col-xs-10">${profile.firstname}</div>
+			<div class="col-xs-10">${profile.firstname} ${profile.lastname}</div>
 			<div class="col-xs-2 addclientrow">
 				<a href="javascript:void(0)"> <span
 					class="glyphicon glyphicon-menu-right fshglyphicon-chevron-right"></span>

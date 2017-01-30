@@ -9,9 +9,10 @@ public interface MeasurementService {
 
 	void saveMeasurement(Measurement measurement);
 
-	Measurement findMeasurement(Long id);
+	Measurement findMeasurement(int ProfileId);
 
 	Measurement updateMeasurement(Measurement measurement);
 
 	void deleteMeasurement(Measurement measurement);
+	
 }

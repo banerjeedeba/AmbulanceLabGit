@@ -550,8 +550,9 @@ top: -1px;
 	
 .fshglyphicon-chevron-left{
 font-size: 25px;
-top: -1px;
+top: 18px;
 position: abssolute;
+color: white;
 }
 .addclientlist{
 margin-top: -40px;
@@ -575,7 +576,7 @@ text-align: center;
 }
 
 .bodydrawer{
-padding-top: 4.00em;
+padding-top: 0.20em;
 }
 
 .clientdetaillist li a{
@@ -634,6 +635,9 @@ margin-right:5px;
 	    padding-bottom: 1em;
     background: white;
 	    /* margin-top: 55px; */
+	    height:98%;
+	        padding-top: 0.5em;
+	        overflow-y: scroll;
 }
 .drawerpadnotes{
 margin-left:5px;
@@ -642,6 +646,37 @@ margin-right:5px;
 	    
     background: white;
 	    margin-top: 55px;
+}
+.loading-icon{
+	
+}
+.loadingimage{
+	    /* opacity: 3; */
+    z-index: 1030;
+    /* text-align: center; */
+    display: block;
+    position: absolute;
+    /* right: 50%; */
+    /* height: 100%; */
+    /* padding-top: 10em; */
+    top: 35%;
+    left: 38%;
+    /* left: 0; */
+    overflow-y: hidden;
+}
+.loading-icon1{
+	text-align: center;
+    z-index: 1020;
+    display: block;
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    right: 0;
+    height: 100%;
+    padding-top: 10em;
+    left: 0;
+    overflow-y: hidden;
+
 }
 .bottom-btn-container {
   position: fixed;
@@ -718,4 +753,16 @@ height: 0px;
 }
 .key{
 	font-weight:bold;
+}
+
+
+
+footer {
+    margin: 50px 0;
+}
+
+.itemoutfit{
+	padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
 }

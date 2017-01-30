@@ -12,6 +12,7 @@
   require(['jquery','bootstrap','app'], function($) {
     $(document).ready(function () {
 function readURL(input) {
+	$('.loading-icon').removeClass('hide');
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
 	        var url = '<%= blobstoreService.createUploadUrl("/addClientPic.do") %>';
@@ -32,7 +33,7 @@ function readURL(input) {
 		      cache: false,
 		      type: 'POST',
 		      success: function(data){
-		        alert("ok");
+		    	  $('.loading-icon').addClass('hide');
 		      }
 		    });
 	    }
@@ -64,7 +65,7 @@ function readURL(input) {
 	<form action="<%= blobstoreService.createUploadUrl("/addClientPic.do") %>" id="imgupload" enctype="multipart/form-data" method="post" >
 	<input type="file" name="myFile" id="imgInp"> <img
 			id="blah" src="${not empty profile.blobKey?profile.blobKey:'resources/fsh/images/addpic.PNG'}" class="img-circle .img-responsive" alt=""
-			width="100" height="95">
+			width="100" height="100">
 	<input type="hidden" id="profileId" name="profileId" value="<%=profile.getProfileid()%>"/>
 	</form>
 	</label>
@@ -101,7 +102,7 @@ function readURL(input) {
 	  </div>
 	  
 	  <div class="col-xs-2 addclientrow">
-	  <a href="#" onclick="getMeasurementDetails();return false;">
+	  <a href="#" onclick="getMeasurementDetails('${profile.profileid}');return false;">
 	   <span class="glyphicon glyphicon-menu-right fshglyphicon-chevron-right"></span>
 	   </a>
 	  </div>
